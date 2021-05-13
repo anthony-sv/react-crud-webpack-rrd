@@ -7,7 +7,7 @@ const ListOfQuestions = () => {
 
     useEffect(() => {
         async function fetchData() {
-            const result = await axios("http://localhost:8080/CRUD/Inicio");
+            const result = await axios("http://localhost:8084/CRUD/Inicio");
 
             setData(result.data);
         }

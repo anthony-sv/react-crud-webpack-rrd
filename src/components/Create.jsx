@@ -35,12 +35,12 @@ const Create = () => {
         <>
             <h1>Crear nueva pregunta</h1>
             <Form
-                action="http://localhost:8080/CRUD/NuevaPregunta"
+                action="http://localhost:8084/CRUD/NuevaPregunta"
                 method="POST"
                 encType="multipart/form-data"
             >
                 <Form.Group>
-                    <Form.Label>Nombre de la pregunta {}:</Form.Label>
+                    <Form.Label>Nombre de la pregunta { }:</Form.Label>
                     <Form.Control
                         type="text"
                         name="np"

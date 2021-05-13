@@ -18,17 +18,15 @@ const Question = ({ id, name }) => {
                 >
                     <Button
                         variant="info"
-                        onClick={() => (window.location.href = `/read/${id}`)}
+                        onClick={() => (window.location.href = `/read?id=${id}`)}
                     >
                         Leer pregunta
-                        {/* read para esa pregunta */}
                     </Button>
                     <Button
                         variant="warning"
-                        onClick={() => (window.location.href = `/update/${id}`)}
+                        onClick={() => (window.location.href = `/update?id=${id}`)}
                     >
                         Modificar pregunta
-                        {/* update para esa pregunta */}
                     </Button>
                     <Button variant="danger" onClick={handleShow}>
                         Eliminar pregunta

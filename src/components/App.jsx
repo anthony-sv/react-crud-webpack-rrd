@@ -10,10 +10,10 @@ const App = () => {
     return (
         <>
             <Navbar bg="dark" variant="dark">
-                <Navbar.Brand href="/">ABCC</Navbar.Brand>
+                <Navbar.Brand href="/react-crud">ABCC</Navbar.Brand>
             </Navbar>
             <Container className="lista">
-                <Router >
+                <Router basename="/react-crud">
                     <Switch>
                         <Route exact path="/create">
                             <Create />
@@ -24,10 +24,10 @@ const App = () => {
                                 Crear nueva pregunta
                             </Link>
                         </Route>
-                        <Route exact path="/update/:id">
+                        <Route exact path="/update">
                             <Update />
                         </Route>
-                        <Route exact path="/read/:id">
+                        <Route exact path="/read">
                             <Read />
                         </Route>
                     </Switch>

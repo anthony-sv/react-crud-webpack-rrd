@@ -1,8 +1,10 @@
 const Option = ({ image, foot }) => {
     return (
         <>
-            <img src={image} alt={foot} />
-            <p>{foot}</p>
+            <div style={{display: "block"}}>
+                <img src={image} alt={foot} />
+                <p>{foot}</p>
+            </div>
         </>
     );
 };

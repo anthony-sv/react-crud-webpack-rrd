@@ -4,8 +4,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack",
-    "startdev": "webpack serve",
-    "start": "node ./src/index.js"
+    "start": "webpack serve"
   },
   "license": "MIT",
   "dependencies": {

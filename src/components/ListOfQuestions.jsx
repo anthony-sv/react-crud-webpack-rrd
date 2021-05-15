@@ -7,8 +7,9 @@ const ListOfQuestions = () => {
 
     useEffect(() => {
         async function fetchData() {
-            const result = await axios("http://localhost:8084/CRUD/Inicio");
-
+            const result = await axios(
+                "http://localhost:8084/react-crud/Inicio"
+            );
             setData(result.data);
         }
 
@@ -21,7 +22,6 @@ const ListOfQuestions = () => {
             <Table striped bordered hover style={{ textAlign: "center" }}>
                 <thead>
                     <tr>
-                        <th>Id</th>
                         <th>Nombre de la pregunta</th>
                         <th>Acciones</th>
                     </tr>
@@ -37,7 +37,7 @@ const ListOfQuestions = () => {
                         ))}
                 </tbody>
             </Table>
-            {data.state !== 200 && (
+            {data.state === 201 && (
                 <Container>
                     <h1>Sin preguntas</h1>
                 </Container>

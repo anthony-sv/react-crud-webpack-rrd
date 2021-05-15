@@ -19,9 +19,10 @@ const Update = () => {
 
     useEffect(() => {
         async function fetchData() {
-            const id = obtenerId();
             const result = await axios(
-                `http://localhost:8080/CRUD/PreguntaPorId?id=${id}`
+                `http://localhost:8084/react-crud/PreguntaPorId?id=${
+                    window.location.href.split("=")[1]
+                }`
             );
 
             guardaDatos(result.data.data);
@@ -46,12 +47,6 @@ const Update = () => {
         });
     };
 
-    const obtenerId = () => {
-        const fullpath = window.location.pathname;
-        const path = fullpath.split("/");
-        return path[2];
-    };
-
     const handleInputChange = (event) => {
         setDatos({
             ...datos,
@@ -63,11 +58,15 @@ const Update = () => {
         <>
             <h1>Modificar la pregunta</h1>
             <Form
-                action="http://localhost:8080/CRUD/GuardaPreguntaModificada"
+                action="http://localhost:8084/react-crud/GuardaPreguntaModificada"
                 method="get"
             >
                 <Form.Group>
-                    <Form.Control type="hidden" name="id" value={obtenerId()} />
+                    <Form.Control
+                        type="hidden"
+                        name="id"
+                        value={window.location.href.split("=")[1]}
+                    />
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Nombre de la pregunta:</Form.Label>

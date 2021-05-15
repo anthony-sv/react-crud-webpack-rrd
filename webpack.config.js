@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
 /* @type {import('webpack').Configuration} */
 module.exports = {
-    entry: "./src/index.jsx",
+    entry: "./src/index.js",
     output: {
         path: path.resolve(__dirname, "dist"),
         filename: "[name].[contenthash].js",

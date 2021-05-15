@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Form, Button, Modal } from "react-bootstrap";
+import { Link } from "react-router-dom";
 const Question = ({ id, name }) => {
     const [showModalDelete, setShowModalDelete] = useState(false);
 
@@ -8,7 +9,6 @@ const Question = ({ id, name }) => {
     return (
         <>
             <tr>
-                <th>{id}</th>
                 <td>{name}</td>
                 <td
                     style={{
@@ -16,18 +16,18 @@ const Question = ({ id, name }) => {
                         justifyContent: "space-evenly",
                     }}
                 >
-                    <Button
-                        variant="info"
-                        onClick={() => (window.location.href = `/read?id=${id}`)}
+                    <Link
+                        className="btn btn-info"
+                        to={`/read?id=${id}`}
                     >
                         Leer pregunta
-                    </Button>
-                    <Button
-                        variant="warning"
-                        onClick={() => (window.location.href = `/update?id=${id}`)}
+                    </Link>
+                    <Link
+                        className="btn btn-warning"
+                        to={`/update?id=${id}`}
                     >
-                        Modificar pregunta
-                    </Button>
+                        Modificar Pregunta
+                    </Link>
                     <Button variant="danger" onClick={handleShow}>
                         Eliminar pregunta
                     </Button>
@@ -49,7 +49,9 @@ const Question = ({ id, name }) => {
                         Cancelar
                     </Button>
                     <form
-                        action={"http://localhost:8080/CRUD/EliminarPregunta"}
+                        action={
+                            "http://localhost:8084/react-crud/EliminarPregunta"
+                        }
                         method="get"
                     >
                         <Form.Control type="hidden" name="id" value={id} />

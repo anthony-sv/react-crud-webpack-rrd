@@ -24,10 +24,10 @@ const App = () => {
                                 Crear nueva pregunta
                             </Link>
                         </Route>
-                        <Route exact path="/update">
+                        <Route path="/update">
                             <Update />
                         </Route>
-                        <Route exact path="/read">
+                        <Route path="/read">
                             <Read />
                         </Route>
                     </Switch>

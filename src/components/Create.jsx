@@ -35,12 +35,12 @@ const Create = () => {
         <>
             <h1>Crear nueva pregunta</h1>
             <Form
-                action="http://localhost:8084/CRUD/NuevaPregunta"
+                action="http://localhost:8084/react-crud/NuevaPregunta"
                 method="POST"
                 encType="multipart/form-data"
             >
                 <Form.Group>
-                    <Form.Label>Nombre de la pregunta { }:</Form.Label>
+                    <Form.Label>Nombre de la pregunta {}:</Form.Label>
                     <Form.Control
                         type="text"
                         name="np"
@@ -80,9 +80,9 @@ const Create = () => {
                     />
                     <Form.File
                         name="do1"
-                        required
                         style={{ marginTop: "0.5rem" }}
                         onChange={handleInputChange}
+                        required
                     />
                 </Form.Group>
                 <Form.Group>
@@ -96,9 +96,9 @@ const Create = () => {
                     />
                     <Form.File
                         name="do2"
-                        required
                         style={{ marginTop: "0.5rem" }}
                         onChange={handleInputChange}
+                        required
                     />
                 </Form.Group>
                 <Form.Group>
@@ -112,9 +112,9 @@ const Create = () => {
                     />
                     <Form.File
                         name="do3"
-                        required
                         style={{ marginTop: "0.5rem" }}
                         onChange={handleInputChange}
+                        required
                     />
                 </Form.Group>
                 <Form.Group>
@@ -128,9 +128,9 @@ const Create = () => {
                     />
                     <Form.File
                         name="do4"
-                        required
                         style={{ marginTop: "0.5rem" }}
                         onChange={handleInputChange}
+                        required
                     />
                 </Form.Group>
                 <Form.Group>
@@ -144,9 +144,9 @@ const Create = () => {
                     />
                     <Form.File
                         name="to1"
-                        required
                         style={{ marginTop: "0.5rem" }}
                         onChange={handleInputChange}
+                        required
                     />
                 </Form.Group>
                 <Form.Group>
@@ -160,9 +160,9 @@ const Create = () => {
                     />
                     <Form.File
                         name="to2"
-                        required
                         style={{ marginTop: "0.5rem" }}
                         onChange={handleInputChange}
+                        required
                     />
                 </Form.Group>
                 <Form.Group>
@@ -176,9 +176,9 @@ const Create = () => {
                     />
                     <Form.File
                         name="to3"
-                        required
                         style={{ marginTop: "0.5rem" }}
                         onChange={handleInputChange}
+                        required
                     />
                 </Form.Group>
                 <Form.Group>
@@ -192,9 +192,9 @@ const Create = () => {
                     />
                     <Form.File
                         name="to4"
-                        required
                         style={{ marginTop: "0.5rem" }}
                         onChange={handleInputChange}
+                        required
                     />
                 </Form.Group>
                 <Button variant="primary" type="submit">

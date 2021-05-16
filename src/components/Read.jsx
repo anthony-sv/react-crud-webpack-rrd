@@ -8,8 +8,7 @@ const Read = () => {
     useEffect(() => {
         async function fetchData() {
             const result = await axios(
-                `http://localhost:8084/react-crud/PreguntaPorId?id=${
-                    window.location.href.split("=")[1]
+                `http://localhost:8080/react-crud/PreguntaPorId?id=${window.location.href.split("=")[1]
                 }`
             );
 
@@ -29,7 +28,7 @@ const Read = () => {
             <h3>Respuesta: </h3>
             <h4>{data.respuesta}</h4>
             <h3>Drag options</h3>
-            <div style={{display: "flex", justifyContent: "space-around", flexWrap: "wrap"}}>
+            <div style={{ display: "flex", justifyContent: "space-around", flexWrap: "wrap" }}>
                 {data.drags.map((item) => (
                     <Option
                         key={"drag" + 0}
@@ -39,7 +38,7 @@ const Read = () => {
                 ))}
             </div>
             <h3>Target options</h3>
-            <div style={{display: "flex", justifyContent: "space-around", flexWrap: "wrap"}}>
+            <div style={{ display: "flex", justifyContent: "space-around", flexWrap: "wrap" }}>
                 {data.targets.map((item) => (
                     <Option key={"tar" + 0} image={item.imagen} foot={item.texto} />
                 ))}

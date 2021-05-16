@@ -20,8 +20,7 @@ const Update = () => {
     useEffect(() => {
         async function fetchData() {
             const result = await axios(
-                `http://localhost:8084/react-crud/PreguntaPorId?id=${
-                    window.location.href.split("=")[1]
+                `http://localhost:8080/react-crud/PreguntaPorId?id=${window.location.href.split("=")[1]
                 }`
             );
 
@@ -58,7 +57,7 @@ const Update = () => {
         <>
             <h1>Modificar la pregunta</h1>
             <Form
-                action="http://localhost:8084/react-crud/GuardaPreguntaModificada"
+                action="http://localhost:8080/react-crud/GuardaPreguntaModificada"
                 method="get"
             >
                 <Form.Group>

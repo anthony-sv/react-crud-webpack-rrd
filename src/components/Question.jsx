@@ -50,7 +50,7 @@ const Question = ({ id, name }) => {
                     </Button>
                     <form
                         action={
-                            "http://localhost:8084/react-crud/EliminarPregunta"
+                            "http://localhost:8080/react-crud/EliminarPregunta"
                         }
                         method="get"
                     >

@@ -7,12 +7,23 @@ import "../styles/login-style.css";
 import Update from "./Update";
 import Read from "./Read";
 import Login from "./Login";
+import Error from "./Error";
 
 const App = () => {
     return (
         <>
             <Navbar bg="dark" variant="dark">
                 <Navbar.Brand href="/react-crud">ABCC</Navbar.Brand>
+                {
+                    window.localStorage.getItem("APP_USER") !== null &&
+                    <>
+                        <Navbar.Collapse className="justify-content-end">
+                            <Navbar.Text>
+                                Sesión iniciada como: <p>{window.localStorage.getItem("APP_USER")}</p>
+                            </Navbar.Text>
+                        </Navbar.Collapse>
+                    </>
+                }
             </Navbar>
             <Container className="lista">
                 <Router basename="/react-crud">
@@ -24,16 +35,26 @@ const App = () => {
                             <Login />
                         </Route>
                         <Route exact path="/home">
-                            <ListOfQuestions />
-                            <Link className="btn btn-primary" to="/create">
-                                Crear nueva pregunta
-                            </Link>
+                            {
+                                window.localStorage.getItem("APP_USER") !== null ? (
+                                    <>
+                                        <ListOfQuestions />
+                                        <Link className="btn btn-primary" to="/create">
+                                            Crear nueva pregunta
+                                        </Link>
+                                    </>
+                                ) : <Error status="500" mensaje="Inicia sesion primero" />
+                            }
                         </Route>
                         <Route path="/update">
-                            <Update />
+                            {
+                                window.localStorage.getItem("APP_USER") !== null ? <Update /> : <Error status="500" mensaje="Inicia sesion primero" />
+                            }
                         </Route>
                         <Route path="/read">
-                            <Read />
+                            {
+                                window.localStorage.getItem("APP_USER") !== null ? <Read /> : <Error status="500" mensaje="Inicia sesion primero" />
+                            }
                         </Route>
                     </Switch>
                 </Router>

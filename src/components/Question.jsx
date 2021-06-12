@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Form, Button, Modal } from "react-bootstrap";
 import { Link } from "react-router-dom";
-const Question = ({ id, name }) => {
+const Question = ({ id, name, m1, m2, b }) => {
     const [showModalDelete, setShowModalDelete] = useState(false);
 
     const handleClose = () => setShowModalDelete(false);
@@ -27,6 +27,12 @@ const Question = ({ id, name }) => {
                         to={`/update?id=${id}`}
                     >
                         Modificar Pregunta
+                    </Link>
+                    <Link
+                        className="btn btn-success"
+                        to={`/probar?id=${id}&m1=${m1}&m2=${m2}&b=${b}`}
+                    >
+                        Probar ejercicio
                     </Link>
                     <Button variant="danger" onClick={handleShow}>
                         Eliminar pregunta

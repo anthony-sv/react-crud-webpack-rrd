@@ -1,9 +1,8 @@
-const Option = ({ image, foot }) => {
+const Option = ({ image }) => {
     return (
         <>
-            <div style={{display: "block"}}>
-                <img src={image} alt={foot} />
-                <p>{foot}</p>
+            <div style={{ display: "block" }}>
+                <img src={image} alt="" />
             </div>
         </>
     );

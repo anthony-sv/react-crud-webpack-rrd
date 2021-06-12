@@ -1,20 +1,14 @@
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
 const Update = () => {
     const [datos, setDatos] = useState({
         nnp: "",
-        np: "",
+        nm1: "",
+        nm2: "",
+        nb: "",
         nr: "",
-        ndt1: "",
-        ndt2: "",
-        ndt3: "",
-        ndt4: "",
-        ntt1: "",
-        ntt2: "",
-        ntt3: "",
-        ntt4: "",
     });
 
     useEffect(() => {
@@ -33,16 +27,10 @@ const Update = () => {
     const guardaDatos = (data) => {
         setDatos({
             nnp: data.nombre,
-            np: data.pregunta,
+            nm1: data.m1,
+            nm2: data.m2,
+            nb: data.b,
             nr: data.respuesta,
-            ndt1: data.drags[0].texto,
-            ndt2: data.drags[1].texto,
-            ndt3: data.drags[2].texto,
-            ndt4: data.drags[3].texto,
-            ntt1: data.targets[0].texto,
-            ntt2: data.targets[1].texto,
-            ntt3: data.targets[2].texto,
-            ntt4: data.targets[3].texto,
         });
     };
 
@@ -78,104 +66,69 @@ const Update = () => {
                     />
                 </Form.Group>
                 <Form.Group>
-                    <Form.Label>Pregunta:</Form.Label>
-                    <Form.Control
-                        type="text"
-                        name="np"
-                        value={datos.np}
-                        autoComplete="off"
-                        onChange={handleInputChange}
-                    />
+                    <Form.Label>Ecuación:</Form.Label>
+                    <Container fluid>
+                        <Row>
+                            <Col xs lg="auto">
+                                y =
+                            </Col>
+                            <Col xs lg={2}>
+                                <Row>
+                                    <Col>
+                                        <Form.Control
+                                            type="number"
+                                            name="nm1"
+                                            value={datos.nm1}
+                                            autoComplete="off"
+                                            onChange={handleInputChange}
+                                            required
+                                        />
+                                    </Col>
+                                </Row>
+                                <hr />
+                                <Row>
+                                    <Col>
+                                        <Form.Control
+                                            type="number"
+                                            name="nm2"
+                                            value={datos.nm2}
+                                            autoComplete="off"
+                                            onChange={handleInputChange}
+                                            required
+                                        />
+                                    </Col>
+                                </Row>
+                            </Col>
+                            <Col xs lg="auto">
+                                x +
+                            </Col>
+                            <Col xs lg={2}>
+                                <Form.Control
+                                    type="number"
+                                    name="nb"
+                                    value={datos.nb}
+                                    autoComplete="off"
+                                    onChange={handleInputChange}
+                                    required
+                                />
+                            </Col>
+                        </Row>
+                    </Container>
                 </Form.Group>
                 <Form.Group>
-                    <Form.Label>Respuesta:</Form.Label>
+                    <Form.Label>Iniciso correcto:</Form.Label>
                     <Form.Control
-                        type="text"
+                        as="select"
                         name="nr"
                         value={datos.nr}
-                        autoComplete="off"
                         onChange={handleInputChange}
-                    />
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label>Drag Opción 1:</Form.Label>
-                    <Form.Control
-                        type="text"
-                        name="ndt1"
-                        value={datos.ndt1}
-                        autoComplete="off"
-                        onChange={handleInputChange}
-                    />
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label>Drag Opción 2:</Form.Label>
-                    <Form.Control
-                        type="text"
-                        name="ndt2"
-                        value={datos.ndt2 ?? "no definido"}
-                        autoComplete="off"
-                        onChange={handleInputChange}
-                    />
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label>Drag Opción 3:</Form.Label>
-                    <Form.Control
-                        type="text"
-                        name="ndt3"
-                        value={datos.ndt3 ?? "no definido"}
-                        autoComplete="off"
-                        onChange={handleInputChange}
-                    />
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label>Drag Opción 4:</Form.Label>
-                    <Form.Control
-                        type="text"
-                        name="ndt4"
-                        value={datos.ndt4 ?? "no definido"}
-                        autoComplete="off"
-                        onChange={handleInputChange}
-                    />
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label>Target opcion 1:</Form.Label>
-                    <Form.Control
-                        type="text"
-                        name="ntt1"
-                        value={datos.ntt1 ?? "no definido"}
-                        autoComplete="off"
-                        onChange={handleInputChange}
-                    />
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label>Target opcion 2:</Form.Label>
-                    <Form.Control
-                        type="text"
-                        name="ntt2"
-                        value={datos.ntt2 ?? "no definido"}
-                        autoComplete="off"
-                        onChange={handleInputChange}
-                    />
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label>Target opcion 3:</Form.Label>
-                    <Form.Control
-                        type="text"
-                        name="ntt3"
-                        value={datos.ntt3 ?? "no definido"}
-                        autoComplete="off"
-                        onChange={handleInputChange}
-                    />
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label>Target opcion 4:</Form.Label>
-                    <Form.Control
-                        type="text"
-                        name="ntt4"
-                        value={datos.ntt4 ?? "no definido"}
-                        autoComplete="off"
-                        onChange={handleInputChange}
-                    />
+                        required
+                    >
+                        <option>a</option>
+                        <option>b</option>
+                        <option>c</option>
+                        <option>d</option>
+                    </Form.Control>
                 </Form.Group>
                 <Button variant="primary" type="submit">
                     Submit

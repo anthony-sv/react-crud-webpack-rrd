@@ -1,27 +1,17 @@
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Row, Col, Container } from "react-bootstrap";
 import { useState } from "react";
 
 const Create = () => {
     const [datos, setDatos] = useState({
         np: "",
-        p: "",
+        m1: "",
+        m2: "",
+        b: "",
         r: "",
         do1: "",
         do2: "",
         do3: "",
         do4: "",
-        dt1: "",
-        dt2: "",
-        dt3: "",
-        dt4: "",
-        to1: "",
-        to2: "",
-        to3: "",
-        to4: "",
-        tt1: "",
-        tt2: "",
-        tt3: "",
-        tt4: "",
     });
 
     const handleInputChange = (event) => {
@@ -39,8 +29,9 @@ const Create = () => {
                 method="POST"
                 encType="multipart/form-data"
             >
+                <p>Recuerde que todas las preguntas son del tipo "¿Cual gráfica es la correcta para la siguiente ecuación?" para toda ecuación del tipo <i>y = mx + b</i>.</p>
                 <Form.Group>
-                    <Form.Label>Nombre de la pregunta { }:</Form.Label>
+                    <Form.Label>Nombre de la pregunta:</Form.Label>
                     <Form.Control
                         type="text"
                         name="np"
@@ -50,34 +41,68 @@ const Create = () => {
                     />
                 </Form.Group>
                 <Form.Group>
-                    <Form.Label>Pregunta:</Form.Label>
-                    <Form.Control
-                        type="text"
-                        name="p"
-                        autoComplete="off"
-                        onChange={handleInputChange}
-                        required
-                    />
+                    <Form.Label>Ecuación:</Form.Label>
+                    <Container fluid>
+                        <Row>
+                            <Col xs lg="auto">
+                                y =
+                            </Col>
+                            <Col xs lg={2}>
+                                <Row>
+                                    <Col>
+                                        <Form.Control
+                                            type="number"
+                                            name="m1"
+                                            autoComplete="off"
+                                            onChange={handleInputChange}
+                                            required
+                                        />
+                                    </Col>
+                                </Row>
+                                <hr />
+                                <Row>
+                                    <Col>
+                                        <Form.Control
+                                            type="number"
+                                            name="m2"
+                                            autoComplete="off"
+                                            onChange={handleInputChange}
+                                            required
+                                        />
+                                    </Col>
+                                </Row>
+                            </Col>
+                            <Col xs lg="auto">
+                                x +
+                            </Col>
+                            <Col xs lg={2}>
+                                <Form.Control
+                                    type="number"
+                                    name="b"
+                                    autoComplete="off"
+                                    onChange={handleInputChange}
+                                    required
+                                />
+                            </Col>
+                        </Row>
+                    </Container>
                 </Form.Group>
                 <Form.Group>
-                    <Form.Label>Respuesta:</Form.Label>
+                    <Form.Label>Iniciso correcto:</Form.Label>
                     <Form.Control
-                        type="text"
+                        as="select"
                         name="r"
-                        autoComplete="off"
                         onChange={handleInputChange}
                         required
-                    />
+                    >
+                        <option>a</option>
+                        <option>b</option>
+                        <option>c</option>
+                        <option>d</option>
+                    </Form.Control>
                 </Form.Group>
                 <Form.Group>
-                    <Form.Label>Drag Opción 1:</Form.Label>
-                    <Form.Control
-                        type="text"
-                        name="dt1"
-                        autoComplete="off"
-                        onChange={handleInputChange}
-                        required
-                    />
+                    <Form.Label>Opción a)</Form.Label>
                     <Form.File
                         name="do1"
                         style={{ marginTop: "0.5rem" }}
@@ -86,14 +111,7 @@ const Create = () => {
                     />
                 </Form.Group>
                 <Form.Group>
-                    <Form.Label>Drag Opción 2:</Form.Label>
-                    <Form.Control
-                        type="text"
-                        name="dt2"
-                        autoComplete="off"
-                        onChange={handleInputChange}
-                        required
-                    />
+                    <Form.Label>Opción b)</Form.Label>
                     <Form.File
                         name="do2"
                         style={{ marginTop: "0.5rem" }}
@@ -102,14 +120,7 @@ const Create = () => {
                     />
                 </Form.Group>
                 <Form.Group>
-                    <Form.Label>Drag Opción 3:</Form.Label>
-                    <Form.Control
-                        type="text"
-                        name="dt3"
-                        autoComplete="off"
-                        onChange={handleInputChange}
-                        required
-                    />
+                    <Form.Label>Opción c)</Form.Label>
                     <Form.File
                         name="do3"
                         style={{ marginTop: "0.5rem" }}
@@ -118,80 +129,9 @@ const Create = () => {
                     />
                 </Form.Group>
                 <Form.Group>
-                    <Form.Label>Drag Opción 4:</Form.Label>
-                    <Form.Control
-                        type="text"
-                        name="dt4"
-                        autoComplete="off"
-                        onChange={handleInputChange}
-                        required
-                    />
+                    <Form.Label>Opción d)</Form.Label>
                     <Form.File
                         name="do4"
-                        style={{ marginTop: "0.5rem" }}
-                        onChange={handleInputChange}
-                        required
-                    />
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label>Target opcion 1:</Form.Label>
-                    <Form.Control
-                        type="text"
-                        name="tt1"
-                        autoComplete="off"
-                        onChange={handleInputChange}
-                        required
-                    />
-                    <Form.File
-                        name="to1"
-                        style={{ marginTop: "0.5rem" }}
-                        onChange={handleInputChange}
-                        required
-                    />
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label>Target opcion 2:</Form.Label>
-                    <Form.Control
-                        type="text"
-                        name="tt2"
-                        autoComplete="off"
-                        onChange={handleInputChange}
-                        required
-                    />
-                    <Form.File
-                        name="to2"
-                        style={{ marginTop: "0.5rem" }}
-                        onChange={handleInputChange}
-                        required
-                    />
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label>Target opcion 3:</Form.Label>
-                    <Form.Control
-                        type="text"
-                        name="tt3"
-                        autoComplete="off"
-                        onChange={handleInputChange}
-                        required
-                    />
-                    <Form.File
-                        name="to3"
-                        style={{ marginTop: "0.5rem" }}
-                        onChange={handleInputChange}
-                        required
-                    />
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label>Target opcion 4:</Form.Label>
-                    <Form.Control
-                        type="text"
-                        name="tt4"
-                        autoComplete="off"
-                        onChange={handleInputChange}
-                        required
-                    />
-                    <Form.File
-                        name="to4"
                         style={{ marginTop: "0.5rem" }}
                         onChange={handleInputChange}
                         required

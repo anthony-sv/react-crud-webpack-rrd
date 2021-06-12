@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Container, Form, Card, Button } from 'react-bootstrap'
+import axios from "axios";
 
 const Login = () => {
 
@@ -12,6 +13,22 @@ const Login = () => {
         });
     };
 
+    const handleSubmit = (e) => {
+
+        e.preventDefault();
+
+    }
+
+    const handleEnviar = async () => {
+        const result = await axios(
+            "http://localhost:8080/react-crud/Login?user=" + data.user + "&pass=" + data.pass
+        );
+        if (result.data.state === 200) {
+            window.localStorage.setItem("APP_USER", JSON.stringify(data.user))
+            window.location.href = '/home'
+        }
+    }
+
     return (
         <Container fluid className="container_login">
             <div className="tittle_login">
@@ -22,7 +39,7 @@ const Login = () => {
                 <Card></Card>
                 <Card>
                     <h1 className="title">Login</h1>
-                    <Form >
+                    <Form onSubmit={handleSubmit}>
                         <Form.Group>
                             <Form.Control name="user" id="user" type="text" required="required" onChange={handleInputChange} />
                             <Form.Label>Usuario</Form.Label>
@@ -34,7 +51,7 @@ const Login = () => {
                             <div className="bar"></div>
                         </Form.Group>
                         <Form.Group className="submit-button">
-                            <Button type="submit" ><span>Enviar</span></Button>
+                            <Button type="submit" onClick={handleEnviar}><span>Enviar</span></Button>
                         </Form.Group>
                     </Form>
                 </Card>

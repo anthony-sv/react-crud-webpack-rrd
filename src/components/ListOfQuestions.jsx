@@ -32,6 +32,9 @@ const ListOfQuestions = () => {
                             <Question
                                 key={item.id}
                                 id={item.id}
+                                m1={item.m1}
+                                m2={item.m2}
+                                b={item.b}
                                 name={item.nombre}
                             />
                         ))}

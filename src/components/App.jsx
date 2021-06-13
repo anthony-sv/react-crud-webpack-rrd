@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom";
 import Create from "./Create";
 import ListOfQuestions from "./ListOfQuestions";
 import { Container, Navbar } from "react-bootstrap";
@@ -8,53 +8,49 @@ import Update from "./Update";
 import Read from "./Read";
 import Login from "./Login";
 import Error from "./Error";
+import { useState, useEffect } from "react";
 
 const App = () => {
+
+    const [logg, setLogg] = useState(false);
+    const [checa, setCheca] = useState(window.localStorage.getItem("APP_USER"));
+
+    useEffect(() => {
+        function fetchData() {
+            if (checa !== null)
+                setLogg(true);
+        }
+
+        fetchData();
+    }, []);
+
     return (
         <>
             <Navbar bg="dark" variant="dark">
                 <Navbar.Brand href="/react-crud">ABCC</Navbar.Brand>
-                {
-                    window.localStorage.getItem("APP_USER") !== null &&
-                    <>
-                        <Navbar.Collapse className="justify-content-end">
-                            <Navbar.Text>
-                                Sesión iniciada como: <p>{window.localStorage.getItem("APP_USER")}</p>
-                            </Navbar.Text>
-                        </Navbar.Collapse>
-                    </>
-                }
             </Navbar>
             <Container className="lista">
                 <Router basename="/react-crud">
                     <Switch>
-                        <Route exact path="/create">
+                        <Route exact path="/">
+                            {logg ? <Redirect to="/inicio" /> : <Login />}
+                        </Route>
+                        <Route path="/inicio">
+                            <>
+                                <ListOfQuestions />
+                                <Link className="btn btn-primary" to="/create">
+                                    Crear nueva pregunta
+                                </Link>
+                            </>
+                        </Route>
+                        <Route path="/create">
                             <Create />
                         </Route>
-                        <Route exact path="/">
-                            <Login />
-                        </Route>
-                        <Route exact path="/home">
-                            {
-                                window.localStorage.getItem("APP_USER") !== null ? (
-                                    <>
-                                        <ListOfQuestions />
-                                        <Link className="btn btn-primary" to="/create">
-                                            Crear nueva pregunta
-                                        </Link>
-                                    </>
-                                ) : <Error status="500" mensaje="Inicia sesion primero" />
-                            }
-                        </Route>
                         <Route path="/update">
-                            {
-                                window.localStorage.getItem("APP_USER") !== null ? <Update /> : <Error status="500" mensaje="Inicia sesion primero" />
-                            }
+                            <Update />
                         </Route>
                         <Route path="/read">
-                            {
-                                window.localStorage.getItem("APP_USER") !== null ? <Read /> : <Error status="500" mensaje="Inicia sesion primero" />
-                            }
+                            <Read />
                         </Route>
                     </Switch>
                 </Router>

@@ -37,28 +37,24 @@ public class PreguntaPorId extends HttpServlet {
                 String idrec = node.getAttributeValue("id");
                 if(idrec.equals(id)){
                     JSONObject pregunta = new JSONObject();
-                    String drags[] = new String[4];
                     String dragstxt[] = new String[4];
-                    Element d = (Element) node.getChild("drags");
+                    Element d = (Element) node.getChild("ecuaciones");
                     pregunta.put("nombre", node.getAttributeValue("nombre"));
-                    pregunta.put("m1", node.getAttributeValue("m1"));
-                    pregunta.put("m2", node.getAttributeValue("m2"));
-                    pregunta.put("b", node.getAttributeValue("b"));
                     pregunta.put("respuesta", node.getAttributeValue("respuestas"));
                     pregunta.put("id", id);
-                    List listaD = d.getChildren("opcion");
+                    List listaD = d.getChildren("ecuacion");
                     JSONArray arrd = new JSONArray();
                     for(int j = 0; j < listaD.size(); j++){
                         JSONObject drag = new JSONObject();
                         Element op = (Element) listaD.get(j);
-                        drags[j] = op.getAttributeValue("imagen");
-                        drag.put("imagen", drags[j]);
+                        dragstxt[j] = op.getText();
+                        drag.put("ecuacion", dragstxt[j]);
                         arrd.put(drag);
                     }
-                    pregunta.put("drags", arrd);
+                    pregunta.put("ecuaciones", arrd);
                     data.put("data", pregunta);
                     data.put("state", 200);
-                    data.put("message", "Ejercicio encontrado");
+                    data.put("message", "Pregunta encontrada");
                     response.getWriter().write(data.toString());
                     response.getWriter().flush();
                     break;

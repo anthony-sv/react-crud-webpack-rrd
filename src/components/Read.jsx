@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 const Read = () => {
-    const [data, setData] = useState({ drags: [] });
+    const [data, setData] = useState({ ecuaciones: [] });
 
     useEffect(() => {
         async function fetchData() {
@@ -22,20 +22,13 @@ const Read = () => {
         <>
             <h1>Información de la pregunta</h1>
             <h3>Nombre de la pregunta: </h3>
-            <h4>{data.nombre}</h4>
-            <h3>Ecuacion ingresada: </h3>
-            <h4>y = ({data.m1}/{data.m2})x + {data.b}</h4>
+            <p>{data.nombre}</p>
+            <h3>Ecuaciones ingresadas: </h3>
+            {data.ecuaciones.map((item) => (
+                <p>{item.ecuacion}</p>
+            ))}
             <h3>Respuesta: </h3>
-            <h4>{data.respuesta}</h4>
-            <h3>Drag options</h3>
-            <div style={{ display: "flex", justifyContent: "space-around", flexWrap: "wrap" }}>
-                {data.drags.map((item) => (
-                    <Option
-                        key={"drag" + 0}
-                        image={item.imagen}
-                    />
-                ))}
-            </div>
+            <p>{data.respuesta}</p>
         </>
     );
 };

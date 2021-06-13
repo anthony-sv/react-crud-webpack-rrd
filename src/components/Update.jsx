@@ -5,9 +5,10 @@ import axios from "axios";
 const Update = () => {
     const [datos, setDatos] = useState({
         nnp: "",
-        nm1: "",
-        nm2: "",
-        nb: "",
+        ne1: "",
+        ne2: "",
+        ne3: "",
+        ne4: "",
         nr: "",
     });
 
@@ -27,9 +28,10 @@ const Update = () => {
     const guardaDatos = (data) => {
         setDatos({
             nnp: data.nombre,
-            nm1: data.m1,
-            nm2: data.m2,
-            nb: data.b,
+            ne1: data.ecuaciones[0].ecuacion,
+            ne2: data.ecuaciones[1].ecuacion,
+            ne3: data.ecuaciones[2].ecuacion,
+            ne4: data.ecuaciones[3].ecuacion,
             nr: data.respuesta,
         });
     };
@@ -66,54 +68,44 @@ const Update = () => {
                     />
                 </Form.Group>
                 <Form.Group>
-                    <Form.Label>Ecuación:</Form.Label>
-                    <Container fluid>
-                        <Row>
-                            <Col xs lg="auto">
-                                y =
-                            </Col>
-                            <Col xs lg={2}>
-                                <Row>
-                                    <Col>
-                                        <Form.Control
-                                            type="number"
-                                            name="nm1"
-                                            value={datos.nm1}
-                                            autoComplete="off"
-                                            onChange={handleInputChange}
-                                            required
-                                        />
-                                    </Col>
-                                </Row>
-                                <hr />
-                                <Row>
-                                    <Col>
-                                        <Form.Control
-                                            type="number"
-                                            name="nm2"
-                                            value={datos.nm2}
-                                            autoComplete="off"
-                                            onChange={handleInputChange}
-                                            required
-                                        />
-                                    </Col>
-                                </Row>
-                            </Col>
-                            <Col xs lg="auto">
-                                x +
-                            </Col>
-                            <Col xs lg={2}>
-                                <Form.Control
-                                    type="number"
-                                    name="nb"
-                                    value={datos.nb}
-                                    autoComplete="off"
-                                    onChange={handleInputChange}
-                                    required
-                                />
-                            </Col>
-                        </Row>
-                    </Container>
+                    <Form.Label>a) Ecuación 1</Form.Label>
+                    <Form.Control
+                        type="text"
+                        name="ne1"
+                        value={datos.ne1}
+                        autoComplete="off"
+                        onChange={handleInputChange}
+                    />
+                </Form.Group>
+                <Form.Group>
+                    <Form.Label>b) Ecuación 2</Form.Label>
+                    <Form.Control
+                        type="text"
+                        name="ne2"
+                        value={datos.ne2}
+                        autoComplete="off"
+                        onChange={handleInputChange}
+                    />
+                </Form.Group>
+                <Form.Group>
+                    <Form.Label>c) Ecuación 3</Form.Label>
+                    <Form.Control
+                        type="text"
+                        name="ne3"
+                        value={datos.ne3}
+                        autoComplete="off"
+                        onChange={handleInputChange}
+                    />
+                </Form.Group>
+                <Form.Group>
+                    <Form.Label>d) Ecuación 4</Form.Label>
+                    <Form.Control
+                        type="text"
+                        name="ne4"
+                        value={datos.ne4}
+                        autoComplete="off"
+                        onChange={handleInputChange}
+                    />
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Iniciso correcto:</Form.Label>

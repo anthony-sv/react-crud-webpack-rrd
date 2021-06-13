@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
-import { Container, Form, Card, Button } from 'react-bootstrap'
+import { Container, Form, Card, Button, Alert } from 'react-bootstrap'
 import axios from "axios";
 
 const Login = () => {
 
     const [data, setData] = useState({ user: '', pass: '' });
+    const [show, setShow] = useState(false);
 
     const handleInputChange = (event) => {
         setData({
@@ -25,7 +26,10 @@ const Login = () => {
         );
         if (result.data.state === 200) {
             window.localStorage.setItem("APP_USER", JSON.stringify(data.user))
-            window.location.href = '/home'
+            location.reload();
+            setShow(false);
+        } else {
+            setShow(true);
         }
     }
 
@@ -50,6 +54,18 @@ const Login = () => {
                             <Form.Label>Password</Form.Label>
                             <div className="bar"></div>
                         </Form.Group>
+                        <Container className="mt-3">
+                            {
+                                show == true &&
+                                <Alert variant="danger" onClose={() => setShow(false)} dismissible>
+                                    <Alert.Heading>Oh no, al parecer hay un error! </Alert.Heading>
+                                    <p>
+                                        Revisa cuidadosamente el ususario y contraseña ingresados, al parecer
+                                        uno de los dos no está bien escrito o no esta registrado el usuario.
+                                    </p>
+                                </Alert>
+                            }
+                        </Container>
                         <Form.Group className="submit-button">
                             <Button type="submit" onClick={handleEnviar}><span>Enviar</span></Button>
                         </Form.Group>

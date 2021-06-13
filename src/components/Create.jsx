@@ -29,7 +29,7 @@ const Create = () => {
                 method="POST"
                 encType="multipart/form-data"
             >
-                <p>Recuerde que todas las preguntas son del tipo "¿Cual gráfica es la correcta para la siguiente ecuación?" para toda ecuación del tipo <i>y = mx + b</i>.</p>
+                <p>Recuerde que todas las preguntas son del tipo "¿Cual gráfica es la correcta para la ecuación con pendiente m y que pasa por el punto P(0,b)?" para toda ecuación del tipo <i>y = mx + b</i>.</p>
                 <Form.Group>
                     <Form.Label>Nombre de la pregunta:</Form.Label>
                     <Form.Control
@@ -41,51 +41,44 @@ const Create = () => {
                     />
                 </Form.Group>
                 <Form.Group>
-                    <Form.Label>Ecuación:</Form.Label>
-                    <Container fluid>
-                        <Row>
-                            <Col xs lg="auto">
-                                y =
-                            </Col>
-                            <Col xs lg={2}>
-                                <Row>
-                                    <Col>
-                                        <Form.Control
-                                            type="number"
-                                            name="m1"
-                                            autoComplete="off"
-                                            onChange={handleInputChange}
-                                            required
-                                        />
-                                    </Col>
-                                </Row>
-                                <hr />
-                                <Row>
-                                    <Col>
-                                        <Form.Control
-                                            type="number"
-                                            name="m2"
-                                            autoComplete="off"
-                                            onChange={handleInputChange}
-                                            required
-                                        />
-                                    </Col>
-                                </Row>
-                            </Col>
-                            <Col xs lg="auto">
-                                x +
-                            </Col>
-                            <Col xs lg={2}>
-                                <Form.Control
-                                    type="number"
-                                    name="b"
-                                    autoComplete="off"
-                                    onChange={handleInputChange}
-                                    required
-                                />
-                            </Col>
-                        </Row>
-                    </Container>
+                    <Form.Label>a) Ecuación 1</Form.Label>
+                    <Form.Control
+                        type="text"
+                        name="e1"
+                        autoComplete="off"
+                        required
+                        onChange={handleInputChange}
+                    />
+                </Form.Group>
+                <Form.Group>
+                    <Form.Label>b) Ecuación 2</Form.Label>
+                    <Form.Control
+                        type="text"
+                        name="e2"
+                        autoComplete="off"
+                        required
+                        onChange={handleInputChange}
+                    />
+                </Form.Group>
+                <Form.Group>
+                    <Form.Label>c) Ecuación 3</Form.Label>
+                    <Form.Control
+                        type="text"
+                        name="e3"
+                        autoComplete="off"
+                        required
+                        onChange={handleInputChange}
+                    />
+                </Form.Group>
+                <Form.Group>
+                    <Form.Label>d) Ecuación 4</Form.Label>
+                    <Form.Control
+                        type="text"
+                        name="e4"
+                        autoComplete="off"
+                        required
+                        onChange={handleInputChange}
+                    />
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Iniciso correcto:</Form.Label>
@@ -100,42 +93,6 @@ const Create = () => {
                         <option>c</option>
                         <option>d</option>
                     </Form.Control>
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label>Opción a)</Form.Label>
-                    <Form.File
-                        name="do1"
-                        style={{ marginTop: "0.5rem" }}
-                        onChange={handleInputChange}
-                        required
-                    />
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label>Opción b)</Form.Label>
-                    <Form.File
-                        name="do2"
-                        style={{ marginTop: "0.5rem" }}
-                        onChange={handleInputChange}
-                        required
-                    />
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label>Opción c)</Form.Label>
-                    <Form.File
-                        name="do3"
-                        style={{ marginTop: "0.5rem" }}
-                        onChange={handleInputChange}
-                        required
-                    />
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label>Opción d)</Form.Label>
-                    <Form.File
-                        name="do4"
-                        style={{ marginTop: "0.5rem" }}
-                        onChange={handleInputChange}
-                        required
-                    />
                 </Form.Group>
                 <Button variant="primary" type="submit">
                     Crear nueva pregunta

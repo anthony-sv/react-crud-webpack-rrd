@@ -25,10 +25,11 @@ public class GuardaPreguntaModificada extends HttpServlet {
         PrintWriter out = response.getWriter();
         String id = request.getParameter("id");
         String nombre = request.getParameter("nnp");
-        String m1 = request.getParameter("nm1");
-        String m2 = request.getParameter("nm2");
-        String b = request.getParameter("nb");
         String res = request.getParameter("nr");
+        String dt1 = request.getParameter("ne1");
+        String dt2 = request.getParameter("ne2");
+        String dt3 = request.getParameter("ne3");
+        String dt4 = request.getParameter("ne4");
         try {
             Document document = (Document) builder.build(xmlFile);
             Element rootNode = document.getRootElement();
@@ -37,10 +38,22 @@ public class GuardaPreguntaModificada extends HttpServlet {
                 Element node = (Element) listaP.get(i);
                 if(node.getAttributeValue("id").equals(id)){
                     node.setAttribute("nombre", nombre);
-                    node.setAttribute("m1", m1);
-                    node.setAttribute("m2", m2);
-                    node.setAttribute("b", b);
                     node.setAttribute("respuestas", res);
+                    Element d = (Element) node.getChild("ecuaciones");
+                    List listaD = d.getChildren("ecuacion");
+                    Element do1 = (Element) listaD.get(0);
+                    Element do2 = (Element) listaD.get(1);
+                    Element do3 = (Element) listaD.get(2);
+                    Element do4 = (Element) listaD.get(3);
+                    do1.setText(dt1);
+                    do2.setText(dt2);
+                    do3.setText(dt3);
+                    do4.setText(dt4);
+                    d.setContent(do1);
+                    d.addContent(do2);
+                    d.addContent(do3);
+                    d.addContent(do4);
+                    node.setContent(d);
                     break;
                 }
             }

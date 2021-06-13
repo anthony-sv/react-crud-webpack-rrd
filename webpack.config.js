@@ -6,7 +6,7 @@ module.exports = {
     entry: "./src/index.js",
     output: {
         path: path.resolve(__dirname, "dist"),
-        filename: "[name].[contenthash].js",
+        filename: "[name].js",
     },
     mode: "production",
     module: {
@@ -34,6 +34,8 @@ module.exports = {
     },
     devServer: {
         contentBase: path.join(__dirname, "dist"),
+        open: true,
+        openPage: "react-crud",
         port: 9000,
         historyApiFallback: true
     },

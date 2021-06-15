@@ -9,6 +9,7 @@ import Read from "./Read";
 import Login from "./Login";
 import Error from "./Error";
 import { useState, useEffect } from "react";
+import ProbarEjercicio from "./ProbarEjercicio";
 
 const App = () => {
 
@@ -29,15 +30,24 @@ const App = () => {
             <Navbar bg="dark" variant="dark">
                 <Navbar.Brand href="/react-crud">ABCC</Navbar.Brand>
                 <Navbar.Toggle />
-                {
-                    logg &&
+                {logg && (
                     <Navbar.Collapse className="justify-content-end">
                         <Navbar.Text>
                             Sesión como: <i>{checa}</i>
                         </Navbar.Text>
-                        <Button variant="outline-light" size="sm" className="ml-2" onClick={() => { window.localStorage.removeItem("APP_USER"); location.href = "/react-crud"; }}>Cerrar Sesión</Button>
+                        <Button
+                            variant="outline-light"
+                            size="sm"
+                            className="ml-2"
+                            onClick={() => {
+                                window.localStorage.removeItem("APP_USER");
+                                location.href = "/react-crud";
+                            }}
+                        >
+                            Cerrar Sesión
+                        </Button>
                     </Navbar.Collapse>
-                }
+                )}
             </Navbar>
             <Container className="lista">
                 <Router basename="/react-crud">
@@ -46,12 +56,19 @@ const App = () => {
                             {logg ? <Redirect to="/inicio" /> : <Login />}
                         </Route>
                         <Route path="/inicio">
-                            {logg ? <>
-                                <ListOfQuestions />
-                                <Link className="btn btn-primary" to="/create">
-                                    Crear nueva pregunta
-                                </Link>
-                            </> : <Redirect to="/" />}
+                            {logg ? (
+                                <>
+                                    <ListOfQuestions />
+                                    <Link
+                                        className="btn btn-primary"
+                                        to="/create"
+                                    >
+                                        Crear nueva pregunta
+                                    </Link>
+                                </>
+                            ) : (
+                                <Redirect to="/" />
+                            )}
                         </Route>
                         <Route path="/create">
                             {logg ? <Create /> : <Redirect to="/" />}
@@ -61,6 +78,9 @@ const App = () => {
                         </Route>
                         <Route path="/read">
                             {logg ? <Read /> : <Redirect to="/" />}
+                        </Route>
+                        <Route path="/probar">
+                            {logg ? <ProbarEjercicio /> : <Redirect to="/" />}
                         </Route>
                     </Switch>
                 </Router>

@@ -26,7 +26,7 @@ const Login = () => {
         );
         if (result.data.state === 200) {
             window.localStorage.setItem("APP_USER", JSON.stringify(data.user))
-            location.reload();
+            location.href = "/react-crud";
             setShow(false);
         } else {
             setShow(true);

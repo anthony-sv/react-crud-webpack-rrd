@@ -1,25 +1,53 @@
-import { Form, Button, Row, Col, Container } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import { useState } from "react";
 
 const Create = () => {
+
+    const [valida, setValida] = useState({
+        np: "",
+        e1: "",
+        e2: "",
+        e3: "",
+        e4: "",
+    });
     const [datos, setDatos] = useState({
         np: "",
-        m1: "",
-        m2: "",
-        b: "",
-        r: "",
-        do1: "",
-        do2: "",
-        do3: "",
-        do4: "",
+        e1: "",
+        e2: "",
+        e3: "",
+        e4: "",
+        r: ""
     });
 
     const handleInputChange = (event) => {
+
         setDatos({
             ...datos,
             [event.target.name]: event.target.value,
         });
+        setValida({
+            ...valida,
+            [event.target.name]: true,
+        });
+
+        //if(datos.np !== "" && datos.e1 !== "" && datos.)
+
     };
+
+    const validaInput = (event) => {
+
+        let exp = /^((\-*)\d*x)$|^((\-*)\d*x(\+|\-)\d+)$|^((\-*)\d+\/\d+x(\+|\-)\d+\/\d+)$|^((\-*)\d*x(\+|\-)\d+\/\d+)$|^((\-*)\d+\/\d+x(\+|\-)\d+)$|^((\-*)\d+\/\d+x)$|^(\-*\d+)$|^((\-*)\d+\/\d+)$/;
+
+        if (exp.test(event.target.value)) {
+            handleInputChange(event);
+        } else {
+            setValida({
+                ...valida,
+                [event.target.name]: false,
+            });
+        }
+
+    }
 
     return (
         <>
@@ -36,8 +64,8 @@ const Create = () => {
                         type="text"
                         name="np"
                         autoComplete="off"
-                        required
                         onChange={handleInputChange}
+                        required
                     />
                 </Form.Group>
                 <Form.Group>
@@ -46,9 +74,10 @@ const Create = () => {
                         type="text"
                         name="e1"
                         autoComplete="off"
+                        onChange={validaInput}
                         required
-                        onChange={handleInputChange}
                     />
+                    {valida.e1 === false && <p>Oh oh! Al parecer no es válido ese dato.</p>}
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>b) Ecuación 2</Form.Label>
@@ -56,9 +85,10 @@ const Create = () => {
                         type="text"
                         name="e2"
                         autoComplete="off"
+                        onChange={validaInput}
                         required
-                        onChange={handleInputChange}
                     />
+                    {valida.e2 === false && <p>Oh oh! Al parecer no es válido ese dato.</p>}
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>c) Ecuación 3</Form.Label>
@@ -66,9 +96,10 @@ const Create = () => {
                         type="text"
                         name="e3"
                         autoComplete="off"
+                        onChange={validaInput}
                         required
-                        onChange={handleInputChange}
                     />
+                    {valida.e3 === false && <p>Oh oh! Al parecer no es válido ese dato.</p>}
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>d) Ecuación 4</Form.Label>
@@ -76,9 +107,10 @@ const Create = () => {
                         type="text"
                         name="e4"
                         autoComplete="off"
+                        onChange={validaInput}
                         required
-                        onChange={handleInputChange}
                     />
+                    {valida.e4 === false && <p>Oh oh! Al parecer no es válido ese dato.</p>}
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Iniciso correcto:</Form.Label>

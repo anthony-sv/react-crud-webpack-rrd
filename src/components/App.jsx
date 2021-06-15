@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom";
 import Create from "./Create";
 import ListOfQuestions from "./ListOfQuestions";
-import { Container, Navbar } from "react-bootstrap";
+import { Container, Navbar, Button } from "react-bootstrap";
 import "../styles/App.component.css";
 import "../styles/login-style.css";
 import Update from "./Update";
@@ -22,12 +22,22 @@ const App = () => {
         }
 
         fetchData();
-    }, []);
+    });
 
     return (
         <>
             <Navbar bg="dark" variant="dark">
                 <Navbar.Brand href="/react-crud">ABCC</Navbar.Brand>
+                <Navbar.Toggle />
+                {
+                    logg &&
+                    <Navbar.Collapse className="justify-content-end">
+                        <Navbar.Text>
+                            Sesión como: <i>{checa}</i>
+                        </Navbar.Text>
+                        <Button variant="outline-light" size="sm" className="ml-2" onClick={() => { window.localStorage.removeItem("APP_USER"); location.href = "/react-crud"; }}>Cerrar Sesión</Button>
+                    </Navbar.Collapse>
+                }
             </Navbar>
             <Container className="lista">
                 <Router basename="/react-crud">
@@ -36,21 +46,21 @@ const App = () => {
                             {logg ? <Redirect to="/inicio" /> : <Login />}
                         </Route>
                         <Route path="/inicio">
-                            <>
+                            {logg ? <>
                                 <ListOfQuestions />
                                 <Link className="btn btn-primary" to="/create">
                                     Crear nueva pregunta
                                 </Link>
-                            </>
+                            </> : <Redirect to="/" />}
                         </Route>
                         <Route path="/create">
-                            <Create />
+                            {logg ? <Create /> : <Redirect to="/" />}
                         </Route>
                         <Route path="/update">
-                            <Update />
+                            {logg ? <Update /> : <Redirect to="/" />}
                         </Route>
                         <Route path="/read">
-                            <Read />
+                            {logg ? <Read /> : <Redirect to="/" />}
                         </Route>
                     </Switch>
                 </Router>

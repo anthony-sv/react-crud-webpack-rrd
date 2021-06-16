@@ -1,3 +1,15 @@
 .lista {
     margin-top: 1rem;
 }
+
+.adv{
+    font-size: 14px;
+    color: red;
+    font-style: italic;
+    margin-top: 5px;
+}
+
+.centra{
+    display: flex;
+    align-items: center;
+}

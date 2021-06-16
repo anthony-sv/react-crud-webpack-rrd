@@ -30,7 +30,7 @@ const Question = ({ id, name, ec }) => {
                     </Link>
                     <Link
                         className="btn btn-success"
-                        to={`/probar?id=${id}&ec=${ec}`}
+                        to={`/probar?id=${id}`}
                     >
                         Probar ejercicio
                     </Link>

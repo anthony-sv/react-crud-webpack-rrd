@@ -1,4 +1,4 @@
-import Option from "./Option";
+import Image from 'react-bootstrap/Image'
 import { useState, useEffect } from "react";
 import axios from "axios";
 
@@ -29,6 +29,13 @@ const Read = () => {
             ))}
             <h3>Respuesta: </h3>
             <p>{data.respuesta}</p>
+            {
+                data.hint !== "" &&
+                <>
+                    <h3>Pista ingresada</h3>
+                    <Image src={data.hint} rounded />
+                </>
+            }
         </>
     );
 };

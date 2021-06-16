@@ -82,6 +82,11 @@ public class NuevaPregunta extends HttpServlet {
             //Element opcion4 = new Element("opcion");
             pregunta.setAttribute("id", UUID.randomUUID().toString());
             pregunta.setAttribute("nombre", parametros[0]);
+            if(parametros[6] == null){
+                pregunta.setAttribute("pista", "");
+            }else{
+                pregunta.setAttribute("pista", parametros[6]);
+            }
             //pregunta.setAttribute("m1", parametros[1]);
             //pregunta.setAttribute("m2", parametros[2]);
             //pregunta.setAttribute("b", parametros[3]);

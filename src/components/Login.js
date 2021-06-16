@@ -60,8 +60,8 @@ const Login = () => {
                                 <Alert variant="danger" onClose={() => setShow(false)} dismissible>
                                     <Alert.Heading>Oh no, al parecer hay un error! </Alert.Heading>
                                     <p>
-                                        Revisa cuidadosamente el ususario y contraseña ingresados, al parecer
-                                        uno de los dos no está bien escrito o no esta registrado el usuario.
+                                        Revisa cuidadosamente el usuario y contraseña ingresados, al parecer
+                                        uno de los dos no está bien escrito o no está registrado el usuario.
                                     </p>
                                 </Alert>
                             }

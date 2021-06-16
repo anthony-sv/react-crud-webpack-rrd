@@ -1,14 +1,18 @@
 import { Form, Button } from "react-bootstrap";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Create = () => {
 
+    const [hint, setHint] = useState(false);
+    const [active, setActive] = useState(true);
     const [valida, setValida] = useState({
         np: "",
         e1: "",
         e2: "",
         e3: "",
         e4: "",
+        r: "",
+        hint: "",
     });
     const [datos, setDatos] = useState({
         np: "",
@@ -16,7 +20,8 @@ const Create = () => {
         e2: "",
         e3: "",
         e4: "",
-        r: ""
+        r: "",
+        hint: "",
     });
 
     const handleInputChange = (event) => {
@@ -30,13 +35,27 @@ const Create = () => {
             [event.target.name]: true,
         });
 
-        //if(datos.np !== "" && datos.e1 !== "" && datos.)
-
     };
+
+    useEffect(() => {
+        if (datos.np !== "" && datos.e1 !== "" && datos.e2 !== "" && datos.e3 !== "" && datos.e4 !== "" && valida.np === true && valida.e1 === true && valida.e2 === true && valida.e3 === true && valida.e4 === true) {
+            if (hint === true) {
+                if (datos.hint !== "" && valida.hint === true) {
+                    setActive(false);
+                } else {
+                    setActive(true);
+                }
+            } else {
+                setActive(false);
+            }
+        } else {
+            setActive(true);
+        }
+    }, [valida, datos, hint]);
 
     const validaInput = (event) => {
 
-        let exp = /^((\-*)\d*x)$|^((\-*)\d*x(\+|\-)\d+)$|^((\-*)\d+\/\d+x(\+|\-)\d+\/\d+)$|^((\-*)\d*x(\+|\-)\d+\/\d+)$|^((\-*)\d+\/\d+x(\+|\-)\d+)$|^((\-*)\d+\/\d+x)$|^(\-*\d+)$|^((\-*)\d+\/\d+)$/;
+        let exp = /^(\d*x)$|^(\d*x\s?(\+|\-)\s?\d+)$|^(\d+\/[1-9][0-9]*x\s?(\+|\-)\s?\d+\/[1-9][0-9]*)$|^(\d*x\s?(\+|\-)\s?\d+\/[1-9][0-9]*)$|^(\d+\/[1-9][0-9]*x\s?(\+|\-)\s?\d+)$|^(\d+\/[1-9][0-9]*x)$|^(\d+)$|^(\d+\/[1-9][0-9]*)$|^(\d+\s?(\+|\-)\s?\d*x)$|^(\d+\/[1-9][0-9]*\s?(\+|\-)\s?\d*x)$|^(\d+\s?(\+|\-)\s?\d+\/[1-9][0-9]*x)$|^(\d+\/[1-9][0-9]*\s?(\+|\-)\s?\d+\/[1-9][0-9]*x)$/;
 
         if (exp.test(event.target.value)) {
             handleInputChange(event);
@@ -67,6 +86,7 @@ const Create = () => {
                         onChange={handleInputChange}
                         required
                     />
+                    {valida.np === false && <p className="adv">Oh oh! Al parecer no es válido ese dato :c</p>}
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>a) Ecuación 1</Form.Label>
@@ -77,7 +97,7 @@ const Create = () => {
                         onChange={validaInput}
                         required
                     />
-                    {valida.e1 === false && <p>Oh oh! Al parecer no es válido ese dato.</p>}
+                    {valida.e1 === false && <p className="adv">Oh oh! Al parecer no es válido ese dato :c</p>}
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>b) Ecuación 2</Form.Label>
@@ -88,7 +108,7 @@ const Create = () => {
                         onChange={validaInput}
                         required
                     />
-                    {valida.e2 === false && <p>Oh oh! Al parecer no es válido ese dato.</p>}
+                    {valida.e2 === false && <p className="adv">Oh oh! Al parecer no es válido ese dato :c</p>}
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>c) Ecuación 3</Form.Label>
@@ -99,7 +119,7 @@ const Create = () => {
                         onChange={validaInput}
                         required
                     />
-                    {valida.e3 === false && <p>Oh oh! Al parecer no es válido ese dato.</p>}
+                    {valida.e3 === false && <p className="adv">Oh oh! Al parecer no es válido ese dato :c</p>}
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>d) Ecuación 4</Form.Label>
@@ -110,7 +130,7 @@ const Create = () => {
                         onChange={validaInput}
                         required
                     />
-                    {valida.e4 === false && <p>Oh oh! Al parecer no es válido ese dato.</p>}
+                    {valida.e4 === false && <p className="adv">Oh oh! Al parecer no es válido ese dato :c</p>}
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Iniciso correcto:</Form.Label>
@@ -126,7 +146,17 @@ const Create = () => {
                         <option>d</option>
                     </Form.Control>
                 </Form.Group>
-                <Button variant="primary" type="submit">
+                <Form.Group>
+                    <Form.Label>¿Desea ingresar una pista al ejercicio?</Form.Label>
+                    <Button name="btn-hint-true" className="ml-3" variant="success" onClick={() => setHint(true)} disabled={hint}>Aceptar</Button>
+                </Form.Group>
+                {
+                    hint === true && <Form.Group>
+                        <Form.Label>Ingrese la imagen que será la pista.</Form.Label>
+                        <Form.File onChange={handleInputChange} name="hint" accept="image/*" />
+                    </Form.Group>
+                }
+                <Button variant="primary" type="submit" disabled={active}>
                     Crear nueva pregunta
                 </Button>
             </Form>

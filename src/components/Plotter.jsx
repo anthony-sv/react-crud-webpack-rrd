@@ -1,34 +1,37 @@
 import functionPlot from "function-plot";
 import { useEffect } from "react";
 const parameters = {
-    target: "#myFunction",
+    title: `y = x`,
+    target: "#1",
     data: [
         {
             fn: "x",
         },
     ],
     grid: true,
-    yAxis: { domain: [-5, 5] },
-    xAxis: { domain: [-5, 5] },
+    yAxis: { label: 'y' },
+    xAxis: { label: 'x' },
 };
-function plot(f) {
-    console.log(`f es ${f}`);
-    if (!isEmptyOrSpacesOrNull(f)){
+function plot(f, id) {
+    if (!isEmptyOrSpacesOrNull(f)) {
         parameters.data[0].fn = f;
+        parameters.title = `y = ${f}`
     }
+    parameters.target = `#m${id}`;
     functionPlot(parameters);
 }
 function isEmptyOrSpacesOrNull(str) {
-    return str === null || str === undefined || str ===true || str?.match(/^ *$/) !== null;
+    return str === null || str === undefined || str === true || str?.match(/^ *$/) !== null;
 }
-const Plotter = ({ecuacion}) => {
+const Plotter = ({ ecuacion, id }) => {
+    let idp = `m${id}`
     useEffect(() => {
-        plot(ecuacion);
+        plot(ecuacion, id);
     }, [ecuacion])
     return (
         <>
             <section>
-                <div id="myFunction"></div>
+                <div id={idp}></div>
             </section>
         </>
     );

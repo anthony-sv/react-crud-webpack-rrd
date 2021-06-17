@@ -19,10 +19,13 @@ import org.jdom.output.XMLOutputter;
 public class GuardaPreguntaModificada extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        
         String ruta=request.getRealPath("/"); 
         SAXBuilder builder = new SAXBuilder();
+        //Se obtiene el archivo de preguntas XML en la path principal del proyecto
         File xmlFile = new File(ruta+"preguntas.xml");
         PrintWriter out = response.getWriter();
+        //Obtenemos todos los elementos que se envían desde el form
         String id = request.getParameter("id");
         String nombre = request.getParameter("nnp");
         String res = request.getParameter("nr");
@@ -32,11 +35,15 @@ public class GuardaPreguntaModificada extends HttpServlet {
         String dt4 = request.getParameter("ne4");
         try {
             Document document = (Document) builder.build(xmlFile);
+            //Se obtiene el nodo principal y una lista de los nodos "pregunta" que es donde se guarda cada ejercicio
             Element rootNode = document.getRootElement();
             List listaP = rootNode.getChildren("pregunta");
+            //Se hace un ciclo for para verificar cada pregunta
             for (int i = 0; i < listaP.size(); i++) {
                 Element node = (Element) listaP.get(i);
+                //Se obtiene el id del XML y se comprueba con el id de la pregunta a modificar
                 if(node.getAttributeValue("id").equals(id)){
+                    //Se guardan todo los datos actualizados de la pregunta
                     node.setAttribute("nombre", nombre);
                     node.setAttribute("respuestas", res);
                     Element d = (Element) node.getChild("ecuaciones");
@@ -57,12 +64,14 @@ public class GuardaPreguntaModificada extends HttpServlet {
                     break;
                 }
             }
+            //Se guarda el xml con los nodos sobrantes
             XMLOutputter xmlOutput = new XMLOutputter();
             xmlOutput.setFormat(Format.getPrettyFormat());
             FileWriter writer = new FileWriter(ruta+"preguntas.xml");                
             xmlOutput.output(document, writer);
             writer.flush();
             writer.close();
+            //Se hace una redireccion a home
             response.sendRedirect("http://localhost:8080/react-crud/"); 
         }catch(IOException io){
             System.out.println(io.getMessage());    

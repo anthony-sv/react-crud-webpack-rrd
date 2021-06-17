@@ -6,8 +6,10 @@ import '../styles/Probar.css'
 import axios from "axios";
 import MostrarMultimedia from "./MostrarMultimedia"
 
+//Variable que permite guardar una fecha
 const fromTime = new Date(0, 0, 0, 0, 0, 0, 0);
 
+//Funcion que convierte el tiempo obtenido de nanosegundos a su convercion mas grande proxima
 function msToTime(ms) {
     let seconds = (ms / 1000).toFixed(1);
     let minutes = (ms / (1000 * 60)).toFixed(1);
@@ -21,16 +23,26 @@ function msToTime(ms) {
 
 const ProbarEjercicio = () => {
 
+    //Estado para habilitar el reloj
     const [isOn, setIsOn] = useState(true);
+    //Estado que almacena el tiempo
     const [timeElapsed, setTimeElapsed] = useState(0);
+    //Estado que almacena la fecha convertida
     const [date, setDate] = useState(null);
+    //Estado donde se almacena el JSON obtenido por la peticion
     const [data, setData] = useState({ ecuaciones: [], hint: "" });
+    //Estado que almacena el resultado del ejercicio
     const [valida, setValida] = useState("");
+    //Estado que habilia o deshabilita el boton de evaluacion
     const [active, setActive] = useState(false);
-    const [respuesta, setRespuesta] = useState("");
+    //Estado donde se almacena la respuesta del cliente
+    const [respuesta, setRespuesta] = useState("a");
+    //Estado donde se almacena la pendiente y el punto de le ecuacion principal
     const [ecuacion, setEcuacion] = useState({ m: "", b: "", });
+    //Estado que muestra la modal de las pistas
     const [showModalDelete, setShowModalDelete] = useState(false);
 
+    //Funcion encargada de detener el reloj así como de validar la respuesta del cliente y deshabilitar el boton
     const stopWatch = () => {
         setIsOn(false);
         let date2 = new Date()
@@ -45,9 +57,11 @@ const ProbarEjercicio = () => {
         setActive(true);
     }
 
+    //Funciones para ocultar y mostrar la modal de la pista
     const handleClose = () => setShowModalDelete(false);
     const handleShow = () => setShowModalDelete(true);
 
+    //Funcion encargada de separa la pendiente y el punto de intersección dependiendo la ecuacion ingresada como válida
     const separa = () => {
 
         var ecuacion = "";
@@ -78,17 +92,20 @@ const ProbarEjercicio = () => {
 
     }
 
+    //Funcion que guarda en tiempo real la respuesta del cliente
     const handleInputChange = (event) => {
 
         setRespuesta(event.target.value);
 
     };
 
+    //useEffect parair guardando en todo momento la fecha
     useEffect(() => {
         let x = new Date()
         setDate(x)
     }, [])
 
+    //useEffect que hace la peticion al servlet por la pregunta con el id del ejercicio
     useEffect(() => {
         async function fetchData() {
             const result = await axios(
@@ -102,6 +119,7 @@ const ProbarEjercicio = () => {
         fetchData();
     }, []);
 
+    //useEffect que llama a la funcion de separar los datos de la ecuacion
     useEffect(() => {
         separa();
     }, [data]);
@@ -144,10 +162,10 @@ const ProbarEjercicio = () => {
                 <Row>
                     {data.ecuaciones.map((item, id) => (
                         <Col>
-                            {id === 0 && <p>a)</p>}
-                            {id === 1 && <p>b)</p>}
-                            {id === 2 && <p>c)</p>}
-                            {id === 3 && <p>d)</p>}
+                            {id === 0 && <p><b>a)</b></p>}
+                            {id === 1 && <p><b>b)</b></p>}
+                            {id === 2 && <p><b>c)</b></p>}
+                            {id === 3 && <p><b>d)</b></p>}
                             <Plotter key={id} ecuacion={item.ecuacion} id={id} />
                         </Col>
                     ))}
@@ -178,7 +196,7 @@ const ProbarEjercicio = () => {
                     <Col><h4>Tiempo: <i>{timeElapsed}</i></h4></Col>
                 </Row>
             </Container>
-            <Modal show={showModalDelete} onHide={handleClose}>
+            <Modal size="lg" show={showModalDelete} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>Pista del ejercicio</Modal.Title>
                 </Modal.Header>

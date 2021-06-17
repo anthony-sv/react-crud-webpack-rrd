@@ -34,6 +34,7 @@ public class NuevaPregunta extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         filePath = request.getRealPath("/");
         isMultipart = ServletFileUpload.isMultipartContent(request);
+        //Variable para guardar los parametros enviados del form
         parametros = new String[19];
         int j = 0;
         if( !isMultipart ) { 
@@ -45,10 +46,12 @@ public class NuevaPregunta extends HttpServlet {
         ServletFileUpload upload = new ServletFileUpload(factory);
         upload.setSizeMax( maxFileSize );
         try { 
+            //Se hace un iterador para cada input del form
             List fileItems = upload.parseRequest(request);
             Iterator i = fileItems.iterator();
             while ( i.hasNext () ) {
                 FileItem fi = (FileItem)i.next();
+                //Se comprueba que el input sea un archivo enviado en mutiparte y lo guarda en servidor
                 if ( !fi.isFormField () ) {
                     String fileName = fi.getName();
                     parametros[j] = fileName;
@@ -59,6 +62,7 @@ public class NuevaPregunta extends HttpServlet {
                     }
                     fi.write( file ) ;
                 }else{
+                    //Obtiene el valor del input así como el nombre del mismo
                     String fieldName = fi.getFieldName();
                     String fieldValue = fi.getString();
                     parametros[j] = fieldValue;
@@ -66,8 +70,10 @@ public class NuevaPregunta extends HttpServlet {
                 j++;
             }
             SAXBuilder builder = new SAXBuilder();
+            //Se obtiene el archivo preguntas XML
             File xmlFile = new File(filePath+"preguntas.xml");
             Document doc = (Document) builder.build(xmlFile);
+            //Se obtiene el nodo principal y se guarda cada atributo y valor 
             Element rootNode = doc.getRootElement();
             Element pregunta = new Element("pregunta");
             Element ecuaciones = new Element("ecuaciones");
@@ -75,41 +81,26 @@ public class NuevaPregunta extends HttpServlet {
             Element opcion2 = new Element("ecuacion");
             Element opcion3 = new Element("ecuacion");
             Element opcion4 = new Element("ecuacion");
-            //Element drags = new Element("drags");
-            //Element opcion1 = new Element("opcion");
-            //Element opcion2 = new Element("opcion");
-            //Element opcion3 = new Element("opcion");
-            //Element opcion4 = new Element("opcion");
             pregunta.setAttribute("id", UUID.randomUUID().toString());
             pregunta.setAttribute("nombre", parametros[0]);
+            //Se comprueba para el apartado de la pista si lo habilitó o no
             if(parametros[6] == null){
                 pregunta.setAttribute("pista", "");
             }else{
                 pregunta.setAttribute("pista", parametros[6]);
             }
-            //pregunta.setAttribute("m1", parametros[1]);
-            //pregunta.setAttribute("m2", parametros[2]);
-            //pregunta.setAttribute("b", parametros[3]);
             pregunta.setAttribute("respuestas", parametros[5]);
             opcion1.setText(parametros[1]);
             opcion2.setText(parametros[2]);
             opcion3.setText(parametros[3]);
             opcion4.setText(parametros[4]);
-            //opcion1.setAttribute("imagen", parametros[5]);
-            //opcion2.setAttribute("imagen", parametros[6]);
-            //opcion3.setAttribute("imagen", parametros[7]);
-            //opcion4.setAttribute("imagen", parametros[8]);
             ecuaciones.addContent(opcion1);
             ecuaciones.addContent(opcion2);
             ecuaciones.addContent(opcion3);
             ecuaciones.addContent(opcion4);
-            //drags.addContent(opcion1);
-            //drags.addContent(opcion2);
-            //drags.addContent(opcion3);
-            //drags.addContent(opcion4);
             pregunta.addContent(ecuaciones);
-            //pregunta.addContent(drags);
             rootNode.addContent(pregunta);
+            //Se crea el archivo XML con los datos
             XMLOutputter xmlOutput = new XMLOutputter();
             xmlOutput.setFormat(Format.getPrettyFormat());
             FileWriter writer = new FileWriter(filePath+"preguntas.xml");                

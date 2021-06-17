@@ -1,38 +1,53 @@
 import functionPlot from "function-plot";
 import { useEffect } from "react";
-const parameters = {
-    title: `y = x`,
-    target: "#1",
-    data: [
-        {
-            fn: "x",
-        },
-    ],
-    grid: true,
-    yAxis: { label: 'y' },
-    xAxis: { label: 'x' },
-};
+
+//Funcion que pertenece a la libreria para graficar donde se especifica la funcion a graficar, así como el id del elemento HTML donde se graficará
 function plot(f, id) {
     if (!isEmptyOrSpacesOrNull(f)) {
-        parameters.data[0].fn = f;
-        parameters.title = `y = ${f}`
+        functionPlot({
+            target: `#m${id}`,
+            data: [
+                {
+                    fn: f,
+                },
+            ],
+            grid: true,
+            yAxis: { label: "y" },
+            xAxis: { label: "x" },
+        });
+    } else {
+        functionPlot({
+            target: `#m${id}`,
+            data: [
+                {
+                    fn: 'x',
+                },
+            ],
+            grid: true,
+            yAxis: { label: "y" },
+            xAxis: { label: "x" },
+        });
     }
-    parameters.target = `#m${id}`;
-    functionPlot(parameters);
 }
+
+//Se comprueba que la ecuacion no sea vacio ni nula
 function isEmptyOrSpacesOrNull(str) {
     return str === null || str === undefined || str === true || str?.match(/^ *$/) !== null;
 }
+
 const Plotter = ({ ecuacion, id }) => {
-    let idp = `m${id}`
+
+    //Variable del id para el parrafo
+    let idp = `m${id}`;
+
+    //useEffect que ejecuta la funcion para graficar
     useEffect(() => {
         plot(ecuacion, id);
-    }, [ecuacion])
+    }, [ecuacion, id])
+
     return (
         <>
-            <section>
-                <div id={idp}></div>
-            </section>
+            <span id={idp}></span>
         </>
     );
 };

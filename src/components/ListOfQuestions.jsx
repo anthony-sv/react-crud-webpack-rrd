@@ -2,9 +2,13 @@ import { Table, Container } from "react-bootstrap";
 import Question from "./Question";
 import { useState, useEffect } from "react";
 import axios from "axios";
+
 const ListOfQuestions = () => {
+
+    //Estado que almacena el JSON obtenido por el servlet
     const [data, setData] = useState({ preguntas: [] });
 
+    //useEffect que hace la peticion al servlet para la informacion de todas las preguntas
     useEffect(() => {
         async function fetchData() {
             const result = await axios(

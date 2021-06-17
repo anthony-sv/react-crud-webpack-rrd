@@ -4,7 +4,9 @@ import axios from "axios";
 
 const Update = () => {
 
+    //Estado para habilitar o deshabilitar el boton submit
     const [active, setActive] = useState(true);
+    //Estado para validar que esten correctos todos los input
     const [valida, setValida] = useState({
         nnp: true,
         ne1: true,
@@ -13,6 +15,7 @@ const Update = () => {
         ne4: true,
         nr: true,
     });
+    //Estado que almacena los valores ingresados en los input por el cliente
     const [datos, setDatos] = useState({
         nnp: "",
         ne1: "",
@@ -22,6 +25,7 @@ const Update = () => {
         nr: "",
     });
 
+    //Funcion que guarda cada valor del JSON de la peticion
     const guardaDatos = (data) => {
         setDatos({
             nnp: data.nombre,
@@ -33,6 +37,7 @@ const Update = () => {
         });
     };
 
+    //useEffect que hace la peticion al servlet por la pregunta con cierto id
     useEffect(() => {
         async function fetchData() {
             const result = await axios(
@@ -46,6 +51,7 @@ const Update = () => {
         fetchData();
     }, []);
 
+    //useEffect que valida en todo momento que los campos estén correctos
     useEffect(() => {
         if (datos.nnp !== "" && datos.ne1 !== "" && datos.ne2 !== "" && datos.ne3 !== "" && datos.ne4 !== "" && valida.nnp === true && valida.ne1 === true && valida.ne2 === true && valida.ne3 === true && valida.ne4 === true) {
             setActive(false);
@@ -54,6 +60,7 @@ const Update = () => {
         }
     }, [valida, datos]);
 
+    //Funcion que guarda en tiempo real los valores de cada input así como su validacion
     const handleInputChange = (event) => {
         setDatos({
             ...datos,
@@ -65,10 +72,12 @@ const Update = () => {
         });
     };
 
+    //Funcion que valida los campos de las ecuaciones permitiendo ingresar ecuaciones del tipo y=mx+b unicamente
     const validaInput = (event) => {
 
         let exp = /^(\d*x)$|^(\d*x\s?(\+|\-)\s?\d+)$|^(\d+\/[1-9][0-9]*x\s?(\+|\-)\s?\d+\/[1-9][0-9]*)$|^(\d*x\s?(\+|\-)\s?\d+\/[1-9][0-9]*)$|^(\d+\/[1-9][0-9]*x\s?(\+|\-)\s?\d+)$|^(\d+\/[1-9][0-9]*x)$|^(\d+)$|^(\d+\/[1-9][0-9]*)$|^(\d+\s?(\+|\-)\s?\d*x)$|^(\d+\/[1-9][0-9]*\s?(\+|\-)\s?\d*x)$|^(\d+\s?(\+|\-)\s?\d+\/[1-9][0-9]*x)$|^(\d+\/[1-9][0-9]*\s?(\+|\-)\s?\d+\/[1-9][0-9]*x)$/;
 
+        //Si es valida con la expresion regular se guarda la ecuacion y se valida el input
         if (exp.test(event.target.value)) {
             handleInputChange(event);
         } else {

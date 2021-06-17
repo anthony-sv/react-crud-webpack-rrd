@@ -13,9 +13,11 @@ import ProbarEjercicio from "./ProbarEjercicio";
 
 const App = () => {
 
+    //Estados para comprobar si esta loggeado y si está la variable en el localStorage
     const [logg, setLogg] = useState(false);
     const [checa, setCheca] = useState(window.localStorage.getItem("APP_USER"));
 
+    //useEffect para comprobar en todo momento que se esta loggeado el cliente
     useEffect(() => {
         function fetchData() {
             if (checa !== null)

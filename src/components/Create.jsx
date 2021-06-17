@@ -3,8 +3,11 @@ import { useState, useEffect } from "react";
 
 const Create = () => {
 
+    //Estado para ver si pondrá una imagen de pista al ejercicio
     const [hint, setHint] = useState(false);
+    //Estado para activar el boton submit
     const [active, setActive] = useState(true);
+    //Estado para validar cada input
     const [valida, setValida] = useState({
         np: "",
         e1: "",
@@ -14,6 +17,7 @@ const Create = () => {
         r: "",
         hint: "",
     });
+    //Estado para guardar los cambios del input
     const [datos, setDatos] = useState({
         np: "",
         e1: "",
@@ -24,6 +28,7 @@ const Create = () => {
         hint: "",
     });
 
+    //Funcion que almacena en tiempo real cada cambio al input y valida si está vacio
     const handleInputChange = (event) => {
 
         setDatos({
@@ -37,9 +42,12 @@ const Create = () => {
 
     };
 
+    //useEffect que valida en tiempo real que se hayan ingresado valores correctos en todos los campos
     useEffect(() => {
         if (datos.np !== "" && datos.e1 !== "" && datos.e2 !== "" && datos.e3 !== "" && datos.e4 !== "" && valida.np === true && valida.e1 === true && valida.e2 === true && valida.e3 === true && valida.e4 === true) {
+            //Añade a la validacion el input de la imagen para la pista
             if (hint === true) {
+                //Si ya se añadio una imagen se habilita el boton de submit
                 if (datos.hint !== "" && valida.hint === true) {
                     setActive(false);
                 } else {
@@ -53,10 +61,12 @@ const Create = () => {
         }
     }, [valida, datos, hint]);
 
+    //Funcion que valida los campos de las ecuaciones permitiendo ingresar ecuaciones del tipo y=mx+b unicamente
     const validaInput = (event) => {
 
         let exp = /^(\d*x)$|^(\d*x\s?(\+|\-)\s?\d+)$|^(\d+\/[1-9][0-9]*x\s?(\+|\-)\s?\d+\/[1-9][0-9]*)$|^(\d*x\s?(\+|\-)\s?\d+\/[1-9][0-9]*)$|^(\d+\/[1-9][0-9]*x\s?(\+|\-)\s?\d+)$|^(\d+\/[1-9][0-9]*x)$|^(\d+)$|^(\d+\/[1-9][0-9]*)$|^(\d+\s?(\+|\-)\s?\d*x)$|^(\d+\/[1-9][0-9]*\s?(\+|\-)\s?\d*x)$|^(\d+\s?(\+|\-)\s?\d+\/[1-9][0-9]*x)$|^(\d+\/[1-9][0-9]*\s?(\+|\-)\s?\d+\/[1-9][0-9]*x)$/;
 
+        //Si es valida con la expresion regular se guarda la ecuacion y se valida el input
         if (exp.test(event.target.value)) {
             handleInputChange(event);
         } else {

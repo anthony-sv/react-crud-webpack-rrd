@@ -2,10 +2,14 @@ import { useState } from "react";
 import { Form, Button, Modal } from "react-bootstrap";
 import { Link } from "react-router-dom";
 const Question = ({ id, name, ec }) => {
+
+    //Estado que habilita la modal de eliminar
     const [showModalDelete, setShowModalDelete] = useState(false);
 
+    //Funciones para ocultar y mostrar la ventan modal
     const handleClose = () => setShowModalDelete(false);
     const handleShow = () => setShowModalDelete(true);
+
     return (
         <>
             <tr>

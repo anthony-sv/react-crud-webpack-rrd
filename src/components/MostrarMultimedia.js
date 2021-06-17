@@ -2,8 +2,8 @@ import { Container, Image } from 'react-bootstrap'
 
 function MostrarMultimedia({ hint }) {
     return (
-        <Container>
-            <Image src={hint} alt="" />
+        <Container className="text-center mt-3">
+            <Image src={hint} style={{ width: "60vh", }} alt={hint} />
         </Container>
     )
 }

@@ -4,9 +4,12 @@ import axios from "axios";
 
 const Login = () => {
 
+    //Estado que almacena el usuario y contraseña ingersado por el cliente
     const [data, setData] = useState({ user: '', pass: '' });
+    //Estado que habilita el mensaje de error
     const [show, setShow] = useState(false);
 
+    //Funcion que guarda cada cambio del valor del input
     const handleInputChange = (event) => {
         setData({
             ...data,
@@ -14,17 +17,21 @@ const Login = () => {
         });
     };
 
+    //Funcion que previene la actualiazcion de pantalla debido al boton submit
     const handleSubmit = (e) => {
 
         e.preventDefault();
 
     }
 
+    //Funcion que hace la peticion al servlet para verificar los valores ingresados por el usuario
     const handleEnviar = async () => {
         const result = await axios(
             "http://localhost:8080/react-crud/Login?user=" + data.user + "&pass=" + data.pass
         );
+        //Se comprueba el estado del JSON obtenido por la peticion, si el estado es 200 es porque se encontró el usuario ingresado
         if (result.data.state === 200) {
+            //Se guarda el usuario en el localStorage y se redirecciona a home
             window.localStorage.setItem("APP_USER", JSON.stringify(data.user))
             location.href = "/react-crud";
             setShow(false);

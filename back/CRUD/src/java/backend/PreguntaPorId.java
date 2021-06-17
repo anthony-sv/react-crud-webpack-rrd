@@ -21,21 +21,27 @@ import org.json.JSONObject;
 public class PreguntaPorId extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        
         String ruta = request.getRealPath("/"); 
         String id = request.getParameter("id");
         SAXBuilder builder = new SAXBuilder();
+        //Se obtiene el archivo preguntas XML
         File xmlFile = new File(ruta+"preguntas.xml");
         response.setContentType("application/json");
         response.addHeader("Access-Control-Allow-Origin", "*");
         JSONObject data = new JSONObject();
         try{
             Document document = (Document) builder.build(xmlFile);
+            //Obtenemos el nodo principal y una lista de los ejercicios creados
             Element rootNode = document.getRootElement();
             List listaP = rootNode.getChildren("pregunta");
+            //Se hace un for para evaluar cada ejercicio
             for(int i = 0 ; i < listaP.size(); i++){
                 Element node = (Element) listaP.get(i);
                 String idrec = node.getAttributeValue("id");
+                //Se comprueba que el id del ejercicio del XML sea igual al id del ejercicio solicitado
                 if(idrec.equals(id)){
+                    //Se guarda en un JSON toda la informacion del ejercicio
                     JSONObject pregunta = new JSONObject();
                     String dragstxt[] = new String[4];
                     Element d = (Element) node.getChild("ecuaciones");
@@ -52,6 +58,7 @@ public class PreguntaPorId extends HttpServlet {
                         drag.put("ecuacion", dragstxt[j]);
                         arrd.put(drag);
                     }
+                    //Ingresamos los datos al JSON y agregamos informacion del status
                     pregunta.put("ecuaciones", arrd);
                     data.put("data", pregunta);
                     data.put("state", 200);

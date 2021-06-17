@@ -13,3 +13,24 @@
     display: flex;
     align-items: center;
 }
+
+/*
+
+    #8E22BB
+    #AB49CC
+    #1E91ED
+    #4CA1F5
+
+*/
+
+.titulo{
+    color: #8E22BB;
+}
+
+.subtitulo{
+    color: #1780d6;
+}
+
+.parrafo{
+    color: #8E22BB;
+}

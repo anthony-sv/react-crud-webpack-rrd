@@ -1,55 +1,65 @@
 import functionPlot from "function-plot";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { Button } from "react-bootstrap";
 
-//Funcion que pertenece a la libreria para graficar donde se especifica la funcion a graficar, así como el id del elemento HTML donde se graficará
-function plot(f, id) {
-    if (!isEmptyOrSpacesOrNull(f)) {
-        functionPlot({
-            target: `#m${id}`,
-            data: [
-                {
-                    fn: f,
-                },
-            ],
-            grid: true,
-            yAxis: { label: "y" },
-            xAxis: { label: "x" },
-        });
-    } else {
-        functionPlot({
-            target: `#m${id}`,
-            data: [
-                {
-                    fn: 'x',
-                },
-            ],
-            grid: true,
-            yAxis: { label: "y" },
-            xAxis: { label: "x" },
-        });
-    }
-}
+const Plotter2 = ({ ecuacion, id }) => {
 
-//Se comprueba que la ecuacion no sea vacio ni nula
-function isEmptyOrSpacesOrNull(str) {
-    return str === null || str === undefined || str === true || str?.match(/^ *$/) !== null;
-}
-
-const Plotter = ({ ecuacion, id }) => {
-
-    //Variable del id para el parrafo
+    const [btn1, setBtn1] = useState(false);
+    const [btn2, setBtn2] = useState(false);
+    const [btn3, setBtn3] = useState(false);
+    const [grid, setGrid] = useState(true);
+    const [plotx, setPlotx] = useState(false);
+    const [plotmx, setPlotmx] = useState(false);
+    const [p, setp] = useState(false);
     let idp = `m${id}`;
-
-    //useEffect que ejecuta la funcion para graficar
+    const plot = () => {
+        if (document.contains(document.getElementById(idp))) {
+            document.getElementById(idp).remove();
+        }
+        const w = document.getElementById("wrapper-" + idp)
+        const sidp = document.createElement("span")
+        const att = document.createAttribute("id");
+        att.value = idp;
+        sidp.setAttributeNode(att);
+        w.appendChild(sidp)
+        functionPlot(p)
+    }
+    function getData() {
+        if (!plotx && !plotmx) {
+            return [{ fn: ecuacion }]
+        } else if (plotx && !plotmx) {
+            return [{ fn: ecuacion }, { fn: "x" }]
+        } else if (!plotx && plotmx) {
+            return [{ fn: ecuacion }, { fn: "-x" }];
+        } else {
+            return [{ fn: ecuacion }, { fn: "x" }, { fn: "-x" }];
+        }
+    }
     useEffect(() => {
-        plot(ecuacion, id);
-    }, [ecuacion, id])
-
+        setp({
+            target: `#m${id}`,
+            data: getData(),
+            grid: grid,
+            yAxis: { label: "y" },
+            xAxis: { label: "x" },
+        });
+    }, [grid, ecuacion, id, plotx, plotmx]);
+    useEffect(() => {
+        if (!p) {
+            return
+        }
+        plot()
+    }, [p]);
     return (
         <>
-            <span id={idp}></span>
+            <div id={"wrapper-" + idp}>
+                <span id={idp}></span>
+                <Button active={btn1} name="b1" variant="info" onClick={() => { setGrid(!grid); setBtn1(!btn1); }}>Grid</Button>
+                <Button active={btn2} name="b1" className="ml-1 mr-1" variant="info" onClick={() => { setPlotx(!plotx); setBtn2(!btn2); }}>Plot x</Button>
+                <Button active={btn3} name="b1" variant="info" onClick={() => { setPlotmx(!plotmx); setBtn3(!btn3); }}>Plot -x</Button>
+            </div>
         </>
     );
 };
 
-export default Plotter;
+export default Plotter2;

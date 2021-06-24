@@ -28,6 +28,7 @@ public class GuardaPreguntaModificada extends HttpServlet {
         //Obtenemos todos los elementos que se envían desde el form
         String id = request.getParameter("id");
         String nombre = request.getParameter("nnp");
+        String pregunta = request.getParameter("np");
         String res = request.getParameter("nr");
         String dt1 = request.getParameter("ne1");
         String dt2 = request.getParameter("ne2");
@@ -45,6 +46,7 @@ public class GuardaPreguntaModificada extends HttpServlet {
                 if(node.getAttributeValue("id").equals(id)){
                     //Se guardan todo los datos actualizados de la pregunta
                     node.setAttribute("nombre", nombre);
+                    node.setAttribute("pregunta", pregunta);
                     node.setAttribute("respuestas", res);
                     Element d = (Element) node.getChild("ecuaciones");
                     List listaD = d.getChildren("ecuacion");

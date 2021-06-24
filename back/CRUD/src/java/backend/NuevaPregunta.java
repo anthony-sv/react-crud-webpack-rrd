@@ -83,17 +83,18 @@ public class NuevaPregunta extends HttpServlet {
             Element opcion4 = new Element("ecuacion");
             pregunta.setAttribute("id", UUID.randomUUID().toString());
             pregunta.setAttribute("nombre", parametros[0]);
+            pregunta.setAttribute("pregunta", parametros[1]);
             //Se comprueba para el apartado de la pista si lo habilitó o no
             if(parametros[6] == null){
                 pregunta.setAttribute("pista", "");
             }else{
-                pregunta.setAttribute("pista", parametros[6]);
+                pregunta.setAttribute("pista", parametros[7]);
             }
-            pregunta.setAttribute("respuestas", parametros[5]);
-            opcion1.setText(parametros[1]);
-            opcion2.setText(parametros[2]);
-            opcion3.setText(parametros[3]);
-            opcion4.setText(parametros[4]);
+            pregunta.setAttribute("respuestas", parametros[6]);
+            opcion1.setText(parametros[2]);
+            opcion2.setText(parametros[3]);
+            opcion3.setText(parametros[4]);
+            opcion4.setText(parametros[5]);
             ecuaciones.addContent(opcion1);
             ecuaciones.addContent(opcion2);
             ecuaciones.addContent(opcion3);

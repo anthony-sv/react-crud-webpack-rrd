@@ -133,7 +133,7 @@ const ProbarEjercicio = () => {
                             <h1>{data.nombre}</h1>
                         </Row>
                         <Row className="mt-4">
-                            <h4>¿Cuál es la gráfica correcta para la ecuacion que tiene pendiente m={ecuacion.m} y para por el punto P(0,{ecuacion.b})?</h4>
+                            <h4>{data.pregunta}</h4>
                         </Row>
                     </Col>
                     <Col>

@@ -46,6 +46,7 @@ public class PreguntaPorId extends HttpServlet {
                     String dragstxt[] = new String[4];
                     Element d = (Element) node.getChild("ecuaciones");
                     pregunta.put("nombre", node.getAttributeValue("nombre"));
+                    pregunta.put("pregunta", node.getAttributeValue("pregunta"));
                     pregunta.put("respuesta", node.getAttributeValue("respuestas"));
                     pregunta.put("hint", node.getAttributeValue("pista"));
                     pregunta.put("id", id);

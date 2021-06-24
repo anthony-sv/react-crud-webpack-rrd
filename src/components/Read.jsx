@@ -41,6 +41,16 @@ const Read = () => {
                 </Row>
                 <Row>
                     <Col>
+                        <h3>Pregunta: </h3>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <p>{data.pregunta}</p>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
                         <h3>Ecuaciones ingresadas: </h3>
                     </Col>
                 </Row>
@@ -73,7 +83,7 @@ const Read = () => {
                             <Col><h3>Pista ingresada</h3></Col>
                         </Row>
                         <Row>
-                            <Col><Image src={data.hint} rounded /></Col>
+                            <Col><Image src={data.hint} style={{ width: "40vh", }} alt={data.hint} rounded /></Col>
                         </Row>
                     </>
                 }

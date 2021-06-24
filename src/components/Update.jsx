@@ -9,6 +9,7 @@ const Update = () => {
     //Estado para validar que esten correctos todos los input
     const [valida, setValida] = useState({
         nnp: true,
+        np: true,
         ne1: true,
         ne2: true,
         ne3: true,
@@ -18,6 +19,7 @@ const Update = () => {
     //Estado que almacena los valores ingresados en los input por el cliente
     const [datos, setDatos] = useState({
         nnp: "",
+        np: "",
         ne1: "",
         ne2: "",
         ne3: "",
@@ -29,6 +31,7 @@ const Update = () => {
     const guardaDatos = (data) => {
         setDatos({
             nnp: data.nombre,
+            np: data.pregunta,
             ne1: data.ecuaciones[0].ecuacion,
             ne2: data.ecuaciones[1].ecuacion,
             ne3: data.ecuaciones[2].ecuacion,
@@ -53,7 +56,7 @@ const Update = () => {
 
     //useEffect que valida en todo momento que los campos estén correctos
     useEffect(() => {
-        if (datos.nnp !== "" && datos.ne1 !== "" && datos.ne2 !== "" && datos.ne3 !== "" && datos.ne4 !== "" && valida.nnp === true && valida.ne1 === true && valida.ne2 === true && valida.ne3 === true && valida.ne4 === true) {
+        if (datos.nnp !== "" && datos.np !== "" && datos.ne1 !== "" && datos.ne2 !== "" && datos.ne3 !== "" && datos.ne4 !== "" && valida.nnp === true && valida.np === true && valida.ne1 === true && valida.ne2 === true && valida.ne3 === true && valida.ne4 === true) {
             setActive(false);
         } else {
             setActive(true);
@@ -75,7 +78,7 @@ const Update = () => {
     //Funcion que valida los campos de las ecuaciones permitiendo ingresar ecuaciones del tipo y=mx+b unicamente
     const validaInput = (event) => {
 
-        let exp = /^(\d*x)$|^(\d*x\s?(\+|\-)\s?\d+)$|^(\d+\/[1-9][0-9]*x\s?(\+|\-)\s?\d+\/[1-9][0-9]*)$|^(\d*x\s?(\+|\-)\s?\d+\/[1-9][0-9]*)$|^(\d+\/[1-9][0-9]*x\s?(\+|\-)\s?\d+)$|^(\d+\/[1-9][0-9]*x)$|^(\d+)$|^(\d+\/[1-9][0-9]*)$|^(\d+\s?(\+|\-)\s?\d*x)$|^(\d+\/[1-9][0-9]*\s?(\+|\-)\s?\d*x)$|^(\d+\s?(\+|\-)\s?\d+\/[1-9][0-9]*x)$|^(\d+\/[1-9][0-9]*\s?(\+|\-)\s?\d+\/[1-9][0-9]*x)$/;
+        let exp = /^\-?(\d*x)$|^\-?(\d*x\s?(\+|\-)\s?\d+)$|^(\-?\d+\/[1-9][0-9]*x\s?(\+|\-)\s?\d+\/[1-9][0-9]*)$|^(\-?\d*x\s?(\+|\-)\s?\d+\/[1-9][0-9]*)$|^(\-?\d+\/[1-9][0-9]*x\s?(\+|\-)\s?\d+)$|^(\-?\d+\/[1-9][0-9]*x)$|^(\-?\d+)$|^(\-?\d+\/[1-9][0-9]*)$|^(\-?\d+\s?(\+|\-)\s?\d*x)$|^(\-?\d+\/[1-9][0-9]*\s?(\+|\-)\s?\d*x)$|^(\-?\d+\s?(\+|\-)\s?\d+\/[1-9][0-9]*x)$|^(\-?\d+\/[1-9][0-9]*\s?(\+|\-)\s?\d+\/[1-9][0-9]*x)$/;
 
         //Si es valida con la expresion regular se guarda la ecuacion y se valida el input
         if (exp.test(event.target.value)) {
@@ -114,6 +117,18 @@ const Update = () => {
                         onChange={handleInputChange}
                     />
                     {valida.nnp === false && <p className="adv">Oh oh! Al parecer no es válido ese dato :c</p>}
+                </Form.Group>
+                <Form.Group>
+                    <Form.Label>Pregunta:</Form.Label>
+                    <Form.Control
+                        type="text"
+                        name="np"
+                        placeholder={datos.np}
+                        defaultValue={datos.np}
+                        autoComplete="off"
+                        onChange={handleInputChange}
+                    />
+                    {valida.np === false && <p className="adv">Oh oh! Al parecer no es válido ese dato :c</p>}
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>a) Ecuación 1</Form.Label>

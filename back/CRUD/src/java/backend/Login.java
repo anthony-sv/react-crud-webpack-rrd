@@ -73,12 +73,35 @@ public class Login extends HttpServlet {
                 response.getWriter().flush();
             }
         }catch (IOException io){
+            //Si da excepcion por no encontrar el XML se crea uno nuevo vacio
             System.out.println(io.getMessage());
-            //Si no se encuentra el archivo usuarios XML se envía un error
             data.put("state", 404);
-            data.put("message", "XML usuarios no encontrado");
+            data.put("message", "No existe el archivo xml");
             response.getWriter().print(data);
             response.getWriter().flush();
+            try{
+                Element raiz = new Element("usuarios");
+                Element us = new Element("usuario");
+                us.setAttribute("id", "1");
+                us.setAttribute("tipo", "1");
+                us.setAttribute("usser", "admin");
+                us.setAttribute("password", "admin");
+                Element us2 = new Element("usuario");
+                us2.setAttribute("id", "2");
+                us2.setAttribute("tipo", "1");
+                us2.setAttribute("usser", "peredo");
+                us2.setAttribute("password", "rpv");
+                raiz.addContent(us);
+                raiz.addContent(us2);
+                Document newdoc = new Document(raiz);
+                XMLOutputter fmt = new XMLOutputter();
+                FileWriter writer = new FileWriter(ruta+"usuarios.xml");
+                fmt.output(newdoc, writer);
+                writer.flush();
+                writer.close();
+            }catch(Exception e){
+                e.printStackTrace();
+            }
         }catch (JDOMException jdomex){
             System.out.println(jdomex.getMessage());
         }
